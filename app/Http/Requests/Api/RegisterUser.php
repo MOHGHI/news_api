@@ -4,6 +4,9 @@
 namespace App\Http\Requests\Api;
 
 
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
 class RegisterUser extends ApiRequest
 {
     /**
@@ -28,5 +31,10 @@ class RegisterUser extends ApiRequest
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|min:6',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
 }
