@@ -36,7 +36,7 @@ class Paginate
 
         $this->total = $builder->count();
 
-        $this->data = $builder->latest()->skip($offset)->take($limit)->get();
+        $this->data = $builder->latest()->skip($offset)->take($limit)->paginate(5);
     }
 
     /**
